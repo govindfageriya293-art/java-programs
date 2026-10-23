@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Form</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(120deg, #a742b5, #fa3298);
+  padding: 20px;
+}
+
+.form-box {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px #0002;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 25px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.tabs button {
+  width: 50%;
+  padding: 13px;
+  border: none;
+  background: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.tabs button.active,
+.submit {
+  background: linear-gradient(120deg, #a742b5, #fa3298);
+  color: white;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 15px;
+  outline-color: #d33aa0;
+}
+
+.forgot {
+  display: block;
+  color: #c44b91;
+  text-decoration: none;
+  margin: 0 0 22px;
+  font-size: 14px;
+}
+
+.submit {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 5px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.bottom {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 14px;
+}
+
+.bottom a {
+  color: #d13b97;
+  text-decoration: none;
+}
+
+#message {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+<div class="form-box">
+  <h1 id="heading">Login Form</h1>
+
+  <div class="tabs">
+    <button id="loginTab" class="active"
+      onclick="setMode('login')">Login</button>
+    <button id="signupTab"
+      onclick="setMode('signup')">Signup</button>
+  </div>
+
+  <form id="myForm">
+    <input type="email" id="email"
+      placeholder="Email Address" required>
+
+    <input type="password" id="password"
+      placeholder="Password" minlength="6" required>
+
+    <a href="#" class="forgot" id="forgot"
+      onclick="resetPassword(event)">Forgot password?</a>
+
+    <button class="submit" id="submitBtn"
+      type="submit">Login</button>
+  </form>
+
+  <p class="bottom" id="bottomText">
+    Not a member? <a href="#"
+    onclick="setMode('signup')">Signup now</a>
+  </p>
+
+  <p id="message"></p>
+</div>
+
+<script>
+let mode = "login";
+
+function setMode(newMode) {
+  mode = newMode;
+
+  document.getElementById("heading").textContent =
+    mode === "login" ? "Login Form" : "Signup Form";
+
+  document.getElementById("loginTab").classList.toggle(
+    "active", mode === "login");
+
+  document.getElementById("signupTab").classList.toggle(
+    "active", mode === "signup");
+
+  document.getElementById("submitBtn").textContent =
+    mode === "login" ? "Login" : "Signup";
+
+  document.getElementById("forgot").style.display =
+    mode === "login" ? "block" : "none";
+
+  document.getElementById("bottomText").innerHTML =
+    mode === "login"
+    ? 'Not a member? <a href="#" onclick="setMode(\'signup\');return false;">Signup now</a>'
+    : 'Already a member? <a href="#" onclick="setMode(\'login\');return false;">Login now</a>';
+
+  document.getElementById("message").textContent = "";
+}
+
+document.getElementById("myForm").addEventListener(
+  "submit", function(event) {
+    event.preventDefault();
+
+    document.getElementById("message").textContent =
+      mode === "login"
+      ? "Demo form: Connect a backend to log in."
+      : "Demo form: Connect a backend to create an account.";
+  }
+);
+
+function resetPassword(event) {
+  event.preventDefault();
+  document.getElementById("message").textContent =
+    "Password reset requires an email service.";
+}
+</script>
+</body>
+</html>
